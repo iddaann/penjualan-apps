@@ -5,6 +5,7 @@ import '../../../core/utils/date_group_helper.dart';
 import '../providers/transaction_provider.dart';
 import '../widgets/transaction_type_filter.dart';
 import '../widgets/transaction_list_tile.dart';
+import '../widgets/transaction_type_picker_sheet.dart';
 
 class TransactionScreen extends ConsumerWidget {
   const TransactionScreen({super.key});
@@ -16,6 +17,10 @@ class TransactionScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Transaksi', style: AppTypography.heading),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => TransactionTypePickerSheet.show(context),
+        child: const Icon(Icons.add),
       ),
       body: Column(
         children: [

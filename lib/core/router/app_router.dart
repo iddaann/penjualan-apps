@@ -7,6 +7,7 @@ import '../../features/report/screens/report_screen.dart';
 import '../../features/settings/screens/settings_screen.dart';
 import '../../data/models/transaction_type.dart';
 import '../../shared/widgets/main_shell.dart';
+import '../../features/transaction/screens/sale_form_screen.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/',
@@ -33,9 +34,17 @@ final GoRouter appRouter = GoRouter(
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: '/transaction',
-              name: 'transaction',
-              builder: (context, state) => const TransactionScreen(),
+              path: '/transaction/add:type',
+              name: 'transactionForm',
+              builder: (context, state) {
+                final typeParam = state.pathParameters['type']!;
+                final type = TransactionTypeX.fromString(typeParam);
+
+                if (type == TransactionType.sale) {
+                  return const SaleFormScreen();
+                }
+                return TransactionFormScreen(type: type);
+              },
             ),
           ],
         ),

@@ -8,6 +8,8 @@ import '../../features/settings/screens/settings_screen.dart';
 import '../../data/models/transaction_type.dart';
 import '../../shared/widgets/main_shell.dart';
 import '../../features/transaction/screens/sale_form_screen.dart';
+import '../../features/transaction/screens/purchase_form_screen.dart';
+import '../../features/transaction/screens/simple_transaction_form_screen.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/',
@@ -40,10 +42,15 @@ final GoRouter appRouter = GoRouter(
                 final typeParam = state.pathParameters['type']!;
                 final type = TransactionTypeX.fromString(typeParam);
 
-                if (type == TransactionType.sale) {
-                  return const SaleFormScreen();
+                switch (type) {
+                  case TransactionType.sale:
+                    return const SaleFormScreen();
+                  case TransactionType.purchase:
+                    return const PurchaseFormScreen();
+                  case TransactionType.operational:
+                  case TransactionType.expense:
+                    return SimpleTransactionFormScreen(type: type);
                 }
-                return TransactionFormScreen(type: type);
               },
             ),
           ],

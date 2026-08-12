@@ -56,4 +56,61 @@ class AppTheme {
       ),
     );
   }
+
+  static ThemeData get dark {
+    const darkBg = Color(0xFF0F172A);
+    const darkSurface = Color(0xFF1E293B);
+    const darkBorder = Color(0xFF334155);
+
+    return ThemeData(
+      useMaterial3: true,
+      brightness: Brightness.dark,
+      scaffoldBackgroundColor: darkBg,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: AppColors.primary,
+        brightness: Brightness.dark,
+        primary: AppColors.primary,
+        surface: darkSurface,
+        error: AppColors.danger,
+      ),
+      textTheme: TextTheme(
+        displayLarge: AppTypography.display.copyWith(color: Colors.white),
+        headlineSmall: AppTypography.heading.copyWith(color: Colors.white),
+        bodyMedium: AppTypography.body.copyWith(color: Colors.white),
+        bodySmall: AppTypography.caption.copyWith(color: Colors.white70),
+      ),
+       appBarTheme: AppBarTheme(
+        backgroundColor: darkBg,
+        elevation: 0,
+        titleTextStyle: AppTypography.heading.copyWith(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
+      ),
+      cardTheme: CardThemeData(
+        color: darkSurface,
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppSizes.cardRadius),
+          side: const BorderSide(color: darkBorder),
+        ),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.primary,
+          foregroundColor: Colors.white,
+          minimumSize:const Size.fromHeight(AppSizes.minTouchTarget),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppSizes.buttonRadius),
+          ),
+        ),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: darkSurface,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(AppSizes.inputRadius),
+          borderSide: const BorderSide(color: darkBorder),
+        ),
+      ),
+    );
+  }
 }

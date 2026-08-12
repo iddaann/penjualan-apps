@@ -13,6 +13,7 @@ import '../../features/product/screens/product_list_screen.dart';
 import '../../features/product/screens/product_form_screen.dart';
 import '../../features/product/providers/product_provider.dart';
 import '../../data/models/product.dart';
+import '../../features/settings/screens/category_list_screen.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/',
@@ -85,6 +86,12 @@ final GoRouter appRouter = GoRouter(
         final product = state.extra as Product;
         return ProductFormScreen(existingProduct: product);
       },
+    ),
+
+    GoRoute(
+      path: '/settings/categories',
+      name: 'categoryList',
+      builder: (context, state) => const CategoryListScreen(),
     ),
 
     // --- Route form transaksi: SEJAJAR dengan StatefulShellRoute,

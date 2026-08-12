@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_typography.dart';
 import '../../../core/constants/app_sizes.dart';
 import '../providers/dashboard_provider.dart';
 import '../widgets/kpi_section.dart';
 import '../widgets/revenue_profit_chart.dart';
 import '../widgets/recent_transaction_section.dart';
+import '../widgets/quick_action_button.dart';
 
 class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});
@@ -37,6 +39,28 @@ class DashboardScreen extends ConsumerWidget {
               padding: const EdgeInsets.all(AppSizes.spacingGrid * 2),
               children: [
                 KpiSection(summary: summary),
+                const SizedBox(height: 24),
+
+                // quick action
+                Row(
+                  children: [
+                    Expanded(
+                      child: QuickActionButton(
+                        icon: Icons.inventory_2_outlined,
+                        label: 'produk',
+                        onTap: () => context.push('/product'),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: QuickActionButton(
+                        icon: Icons.bar_chart_outlined,
+                        label: 'laporan',
+                        onTap: () => context.go('/report'),
+                      ),
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 24),
 
                 chartAsync.when(

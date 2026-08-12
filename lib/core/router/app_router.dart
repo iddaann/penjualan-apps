@@ -9,6 +9,10 @@ import '../../features/report/screens/report_screen.dart';
 import '../../features/settings/screens/settings_screen.dart';
 import '../../data/models/transaction_type.dart';
 import '../../shared/widgets/main_shell.dart';
+import '../../features/product/screens/product_list_screen.dart';
+import '../../features/product/screens/product_form_screen.dart';
+import '../../features/product/providers/product_provider.dart';
+import '../../data/models/product.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/',
@@ -63,6 +67,25 @@ final GoRouter appRouter = GoRouter(
         ),
       ],
     ), // <-- StatefulShellRoute TUTUP DI SINI
+
+    GoRoute(
+      path: '/product',
+      name: 'productList',
+      builder: (context, state) => const ProductListScreen(),
+    ),
+    GoRoute(
+      path: '/product/add',
+      name: 'productAdd',
+      builder: (context, state) => const ProductFormScreen(),
+    ),
+    GoRoute(
+      path: '/product/edit/:id',
+      name: 'productEdit',
+      builder: (context, state) {
+        final product = state.extra as Product;
+        return ProductFormScreen(existingProduct: product);
+      },
+    ),
 
     // --- Route form transaksi: SEJAJAR dengan StatefulShellRoute,
     // BUKAN di dalam salah satu branch-nya. ---

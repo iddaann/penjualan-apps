@@ -4,10 +4,10 @@ import '../../../data/models/report_summary.dart';
 import '../../../data/models/expense_breakdown_item.dart';
 import '../../../data/models/chart_point.dart';
 import '../../../data/repositories/report_repository.dart';
-import '../../../data/repositories/report_repository_dummy.dart';
+import '../../../data/repositories/report_repository_repository_api.dart';
 
 final reportRepositoryProvider = Provider<ReportRepository>((ref) {
-  return ReportRepositoryDummy();
+  return ReportRepositoryApi();
 });
 
 /// Periode yang sedang dipilih di halaman Laporan. Default: Mingguan.

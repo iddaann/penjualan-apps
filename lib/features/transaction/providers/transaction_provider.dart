@@ -2,10 +2,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../data/models/transaction.dart';
 import '../../../data/models/transaction_type.dart';
 import '../../../data/repositories/transaction_repository.dart';
-import '../../../data/repositories/transaction_repository_dummy.dart';
+import '../../../data/repositories/transaction_repository_repository_api.dart';
 
 final transactionRepositoryProvider = Provider<TransactionRepository>((ref) {
-  return TransactionRepositoryDummy();
+  return TransactionRepositoryApi();
 });
 
 /// State filter tipe transaksi yang sedang aktif di halaman list.

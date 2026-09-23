@@ -26,7 +26,8 @@ class TransactionItem {
   }
 
   Map<String, dynamic> toJson() => {
-        'product_id': productId,
+        'product_id': int.parse(productId),
+        'product_name': productName,
         'quantity': quantity,
         'unit_price': unitPrice,
       };

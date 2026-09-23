@@ -67,6 +67,13 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
     return null;
   }
 
+  String? _stockValidator(String? value) {
+    if (value == null || value.trim().isEmpty) return 'Wajib diisi';
+    final parsed = int.tryParse(value.trim());
+    if (parsed == null || parsed < 0) return 'Stok harus bilangan bulat';
+    return null;
+  }
+
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
 

@@ -1,10 +1,9 @@
-/// Model produk dari katalog (Bab 21 RPS - tabel products).
-/// sellPrice dipakai saat transaksi Penjualan,
-/// costPrice (harga modal/beli) dipakai untuk hitung HPP & saat Pembelian.
+/// Model produk dari katalog.
 class Product {
   final String id;
   final String name;
   final String category;
+  final String? categoryId;
   final double sellPrice;
   final double costPrice;
   final int stock;
@@ -14,6 +13,7 @@ class Product {
     required this.id,
     required this.name,
     required this.category,
+    this.categoryId,
     required this.sellPrice,
     required this.costPrice,
     required this.stock,
@@ -25,9 +25,10 @@ class Product {
       id: json['id'].toString(),
       name: json['name'] as String,
       category: json['category'] as String? ?? '-',
+      categoryId: json['category_id']?.toString(),
       sellPrice: (json['sell_price'] as num).toDouble(),
       costPrice: (json['cost_price'] as num).toDouble(),
-      stock: json['stock'] as int,
+      stock: (json['stock'] as num).toInt(),
       unit: json['unit'] as String? ?? 'pcs',
     );
   }

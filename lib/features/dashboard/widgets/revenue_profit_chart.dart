@@ -30,14 +30,36 @@ class RevenueProfitChart extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Text('Pendapatan & Laba (7 hari)', style: AppTypography.body),
-              const Spacer(),
-              _LegendDot(color: AppColors.primary, label: 'Pendapatan'),
-              const SizedBox(width: 12),
-              _LegendDot(color: AppColors.success, label: 'Laba'),
-            ],
+          LayoutBuilder(
+            builder: (context, constraints) {
+              final compact = constraints.maxWidth < 360;
+              if (compact) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Pendapatan & Laba (7 hari)', style: AppTypography.body, overflow: TextOverflow.ellipsis),
+                    const SizedBox(height: 8),
+                    Wrap(
+                      spacing: 12,
+                      runSpacing: 6,
+                      children: [
+                        _LegendDot(color: AppColors.primary, label: 'Pendapatan'),
+                        _LegendDot(color: AppColors.success, label: 'Laba'),
+                      ],
+                    ),
+                  ],
+                );
+              }
+              return Row(
+                children: [
+                  Expanded(child: Text('Pendapatan & Laba (7 hari)', style: AppTypography.body, overflow: TextOverflow.ellipsis)),
+                  const SizedBox(width: 12),
+                  _LegendDot(color: AppColors.primary, label: 'Pendapatan'),
+                  const SizedBox(width: 12),
+                  _LegendDot(color: AppColors.success, label: 'Laba'),
+                ],
+              );
+            },
           ),
           const SizedBox(height: 16),
           SizedBox(

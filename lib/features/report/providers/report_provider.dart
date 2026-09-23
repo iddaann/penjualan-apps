@@ -4,7 +4,7 @@ import '../../../data/models/report_summary.dart';
 import '../../../data/models/expense_breakdown_item.dart';
 import '../../../data/models/chart_point.dart';
 import '../../../data/repositories/report_repository.dart';
-import '../../../data/repositories/report_repository_repository_api.dart';
+import '../../../data/repositories/report_repository_api.dart';
 
 final reportRepositoryProvider = Provider<ReportRepository>((ref) {
   return ReportRepositoryApi();

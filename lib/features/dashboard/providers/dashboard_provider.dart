@@ -3,7 +3,7 @@ import '../../../data/models/dashboard_summary.dart';
 import '../../../data/models/transaction_summary.dart';
 import '../../../data/models/chart_point.dart';
 import '../../../data/repositories/dashboard_repository.dart';
-import '../../../data/repositories/dashboard_repository_repository_api.dart';
+import '../../../data/repositories/dashboard_repository_api.dart';
 
 final dashboardRepositoryProvider = Provider<DashboardRepository>((ref) {
   return DashboardRepositoryApi();

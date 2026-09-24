@@ -23,6 +23,9 @@ class _PurchaseFormScreenState extends ConsumerState<PurchaseFormScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(cartProvider.notifier).clear();
+      // Pastikan daftar produk di form transaksi selalu mengambil data terbaru
+      // dari backend, bukan memakai hasil fetch lama yang masih tersimpan.
+      ref.invalidate(productListProvider);
     });
   }
 

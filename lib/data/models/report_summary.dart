@@ -15,6 +15,7 @@ class ReportSummary {
     required this.grossProfit,
     required this.operationalExpense,
     required this.otherExpense,
+    required this.netProfit,
     required this.profitMargin,
   });
 

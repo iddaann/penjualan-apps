@@ -23,6 +23,9 @@ class _SaleFormScreenState extends ConsumerState<SaleFormScreen> {
     // Pastikan cart kosong setiap kali form ini dibuka baru.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(cartProvider.notifier).clear();
+      // Pastikan daftar produk di form transaksi selalu mengambil data terbaru
+      // dari backend, bukan memakai hasil fetch lama yang masih tersimpan.
+      ref.invalidate(productListProvider);
     });
   }
 

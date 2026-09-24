@@ -6,7 +6,7 @@ import '../../../core/constants/app_sizes.dart';
 import '../../../data/models/transaction_type.dart';
 
 /// Bottom sheet untuk memilih tipe transaksi yang mau ditambahkan.
-/// Dipanggil dari FAB di TransactionScreen (Bab 21 & 26 RPS).
+/// Dipanggil dari FAB di TransactionScreen.
 class TransactionTypePickerSheet extends StatelessWidget {
   const TransactionTypePickerSheet({super.key});
 
@@ -16,6 +16,15 @@ class TransactionTypePickerSheet extends StatelessWidget {
       backgroundColor: Colors.transparent,
       builder: (context) => const TransactionTypePickerSheet(),
     );
+  }
+
+  void _openTransactionForm(BuildContext context, TransactionType type) {
+    // Simpan instance GoRouter sebelum bottom sheet ditutup.
+    // Memanggil context.push() setelah Navigator.pop() pada context
+    // bottom sheet dapat membuat navigasi tidak berjalan konsisten.
+    final router = GoRouter.of(context);
+    Navigator.of(context).pop();
+    router.push('/transaction/add/${type.apiValue}');
   }
 
   @override
@@ -30,7 +39,6 @@ class TransactionTypePickerSheet extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Handle bar kecil di atas, indikasi visual bahwa ini bisa di-drag
           Center(
             child: Container(
               width: 36,
@@ -49,10 +57,7 @@ class TransactionTypePickerSheet extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 10),
               child: _TypeOption(
                 type: type,
-                onTap: () {
-                  Navigator.of(context).pop(); // tutup sheet dulu
-                  context.push('/transaction/add/${type.apiValue}');
-                },
+                onTap: () => _openTransactionForm(context, type),
               ),
             );
           }),

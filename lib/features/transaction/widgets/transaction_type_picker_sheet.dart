@@ -26,7 +26,7 @@ class TransactionTypePickerSheet extends StatelessWidget {
     Navigator.of(context).pop();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      router.goNamed(
+      router.pushNamed(
         'transactionForm',
         pathParameters: {'type': type.apiValue},
       );

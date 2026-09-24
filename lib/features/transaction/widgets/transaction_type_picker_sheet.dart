@@ -19,12 +19,18 @@ class TransactionTypePickerSheet extends StatelessWidget {
   }
 
   void _openTransactionForm(BuildContext context, TransactionType type) {
-    // Simpan instance GoRouter sebelum bottom sheet ditutup.
-    // Memanggil context.push() setelah Navigator.pop() pada context
-    // bottom sheet dapat membuat navigasi tidak berjalan konsisten.
+    // Ambil router sebelum bottom sheet ditutup.
+    // Gunakan goNamed setelah sheet ditutup agar URL browser dan route
+    // benar-benar berpindah ke halaman form transaksi.
     final router = GoRouter.of(context);
     Navigator.of(context).pop();
-    router.push('/transaction/add/${type.apiValue}');
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      router.goNamed(
+        'transactionForm',
+        pathParameters: {'type': type.apiValue},
+      );
+    });
   }
 
   @override

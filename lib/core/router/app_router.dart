@@ -43,6 +43,17 @@ final GoRouter appRouter = GoRouter(
               path: '/transaction',
               name: 'transaction',
               builder: (context, state) => const TransactionScreen(),
+              routes: [
+                GoRoute(
+                  path: 'add/:type',
+                  name: 'transactionForm',
+                  builder: (context, state) {
+                    final typeParam = state.pathParameters['type']!;
+                    final type = TransactionTypeX.fromString(typeParam);
+                    return TransactionFormScreen(type: type);
+                  },
+                ),
+              ],
             ),
           ],
         ),
@@ -92,17 +103,5 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) => const CategoryListScreen(),
     ),
 
-    // --- Route form transaksi: SEJAJAR dengan StatefulShellRoute,
-    // BUKAN di dalam salah satu branch-nya. ---
-    GoRoute(
-      path: '/transaction/add/:type',
-      name: 'transactionForm',
-      builder: (context, state) {
-        final typeParam = state.pathParameters['type']!;
-        final type = TransactionTypeX.fromString(typeParam);
-
-        return TransactionFormScreen(type: type);
-      },
-    ),
   ],
 );

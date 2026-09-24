@@ -13,7 +13,6 @@ class ReportSummary {
     required this.revenue,
     required this.cogs,
     required this.grossProfit,
-    required this.netProfit,
     required this.operationalExpense,
     required this.otherExpense,
     required this.profitMargin,
@@ -21,13 +20,13 @@ class ReportSummary {
 
   factory ReportSummary.fromJson(Map<String, dynamic> json) {
     return ReportSummary(
-      periodLabel: json['period_label'] as String,
+      periodLabel: json['period_label']?.toString() ?? 'Laporan',
       revenue: (json['revenue'] as num).toDouble(),
       cogs: (json['cogs'] as num).toDouble(),
       grossProfit: (json['gross_profit'] as num).toDouble(),
       operationalExpense: (json['operational_expense'] as num).toDouble(),
-      otherExpense: (json['other_expense']as num).toDouble(),
-      netProfit: (json['net_profit']).toDouble(),
+      otherExpense: (json['other_expense'] as num).toDouble(),
+      netProfit: (json['net_profit'] as num).toDouble(),
       profitMargin: (json['profit_margin'] as num).toDouble(),
     );
   }

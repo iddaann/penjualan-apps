@@ -2,9 +2,7 @@ import 'package:go_router/go_router.dart';
 import '../../features/splash/screens/splash_screen.dart';
 import '../../features/dashboard/screens/dashboard_screen.dart';
 import '../../features/transaction/screens/transaction_screen.dart';
-import '../../features/transaction/screens/sale_form_screen.dart';
-import '../../features/transaction/screens/purchase_form_screen.dart';
-import '../../features/transaction/screens/simple_transaction_form_screen.dart';
+import '../../features/transaction/screens/transaction_form_screen.dart';
 import '../../features/report/screens/report_screen.dart';
 import '../../features/settings/screens/settings_screen.dart';
 import '../../data/models/transaction_type.dart';
@@ -103,15 +101,7 @@ final GoRouter appRouter = GoRouter(
         final typeParam = state.pathParameters['type']!;
         final type = TransactionTypeX.fromString(typeParam);
 
-        switch (type) {
-          case TransactionType.sale:
-            return const SaleFormScreen();
-          case TransactionType.purchase:
-            return const PurchaseFormScreen();
-          case TransactionType.operational:
-          case TransactionType.expense:
-            return SimpleTransactionFormScreen(type: type);
-        }
+        return TransactionFormScreen(type: type);
       },
     ),
   ],

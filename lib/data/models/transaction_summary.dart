@@ -16,10 +16,15 @@ class TransactionSummary {
   });
 
   factory TransactionSummary.fromJson(Map<String, dynamic> json) {
+    final type = _typeFromString(json['type'] as String);
+    final description = json['description']?.toString().trim();
+
     return TransactionSummary(
       id: json['id'].toString(),
-      type: _typeFromString(json['type'] as String),
-      description: json['description'] as String,
+      type: type,
+      description: (description == null || description.isEmpty)
+          ? type.label
+          : description,
       amount: (json['total_amount'] as num).toDouble(),
       date: DateTime.parse(json['transaction_date'] as String),
     );

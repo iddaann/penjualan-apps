@@ -19,6 +19,17 @@ class ApiConfig {
       return 'http://localhost:8080/api';
     }
 
-    return 'http://10.0.2.2:8080/api';
+    switch (defaultTargetPlatform) {
+      case TargetPlatform.android:
+        // 10.0.2.2 = host machine dari Android Emulator.
+        // Untuk perangkat Android fisik, gunakan --dart-define=API_BASE_URL.
+        return 'http://10.0.2.2:8080/api';
+      case TargetPlatform.iOS:
+      case TargetPlatform.macOS:
+      case TargetPlatform.windows:
+      case TargetPlatform.linux:
+      case TargetPlatform.fuchsia:
+        return 'http://localhost:8080/api';
+    }
   }
 }

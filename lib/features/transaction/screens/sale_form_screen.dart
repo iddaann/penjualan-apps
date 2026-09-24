@@ -128,7 +128,7 @@ class _SaleFormScreenState
 
               return ProductPickerTile(
                 product: products[index - 1],
-                isPurchase: $purchaseMode,
+                isPurchase: false,
               );
             },
           );

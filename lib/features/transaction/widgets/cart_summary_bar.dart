@@ -26,8 +26,10 @@ class CartSummaryBar extends ConsumerWidget {
       child: SafeArea(
         top: false,
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Expanded(
+            Flexible(
+              fit: FlexFit.loose,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -41,8 +43,11 @@ class CartSummaryBar extends ConsumerWidget {
                 ],
               ),
             ),
-            ElevatedButton(
-              onPressed: (cart.isEmpty || isLoading) ? null : onSubmit,
+            const SizedBox(width: 16),
+            SizedBox(
+              width: 110,
+              child: ElevatedButton(
+                onPressed: (cart.isEmpty || isLoading) ? null : onSubmit,
               child: isLoading
                   ? const SizedBox(
                       width: 18,
@@ -53,6 +58,7 @@ class CartSummaryBar extends ConsumerWidget {
                       ),
                     )
                   : const Text('Simpan'),
+              ),
             ),
           ],
         ),

@@ -2,14 +2,11 @@ import 'package:go_router/go_router.dart';
 import '../../features/splash/screens/splash_screen.dart';
 import '../../features/dashboard/screens/dashboard_screen.dart';
 import '../../features/transaction/screens/transaction_screen.dart';
-import '../../features/transaction/screens/transaction_form_screen.dart';
 import '../../features/report/screens/report_screen.dart';
 import '../../features/settings/screens/settings_screen.dart';
-import '../../data/models/transaction_type.dart';
 import '../../shared/widgets/main_shell.dart';
 import '../../features/product/screens/product_list_screen.dart';
 import '../../features/product/screens/product_form_screen.dart';
-import '../../features/product/providers/product_provider.dart';
 import '../../data/models/product.dart';
 import '../../features/settings/screens/category_list_screen.dart';
 
@@ -43,17 +40,6 @@ final GoRouter appRouter = GoRouter(
               path: '/transaction',
               name: 'transaction',
               builder: (context, state) => const TransactionScreen(),
-              routes: [
-                GoRoute(
-                  path: 'add/:type',
-                  name: 'transactionForm',
-                  builder: (context, state) {
-                    final typeParam = state.pathParameters['type']!;
-                    final type = TransactionTypeX.fromString(typeParam);
-                    return TransactionFormScreen(type: type);
-                  },
-                ),
-              ],
             ),
           ],
         ),

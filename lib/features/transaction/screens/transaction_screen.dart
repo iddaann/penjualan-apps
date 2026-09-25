@@ -2,13 +2,64 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/app_typography.dart';
 import '../../../core/utils/date_group_helper.dart';
+import '../../../data/models/transaction_type.dart';
 import '../providers/transaction_provider.dart';
 import '../widgets/transaction_type_filter.dart';
 import '../widgets/transaction_list_tile.dart';
-import '../widgets/transaction_type_picker_sheet.dart';
+import 'transaction_form_screen.dart';
 
 class TransactionScreen extends ConsumerWidget {
   const TransactionScreen({super.key});
+
+  Future<void> _openAddTransaction(BuildContext context) async {
+    final type = await showDialog<TransactionType>(
+      context: context,
+      builder: (dialogContext) {
+        return AlertDialog(
+          title: Text('Tambah Transaksi', style: AppTypography.heading),
+          content: SizedBox(
+            width: 360,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: TransactionType.values.map((type) {
+                final color = type.isIncome
+                    ? Colors.green
+                    : Theme.of(dialogContext).colorScheme.primary;
+
+                return ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: CircleAvatar(
+                    backgroundColor: color.withValues(alpha: 0.1),
+                    child: Icon(type.icon, color: color),
+                  ),
+                  title: Text(
+                    type.label,
+                    style: AppTypography.body.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  subtitle: Text(
+                    type.isIncome ? 'Pemasukan' : 'Pengeluaran',
+                    style: AppTypography.caption,
+                  ),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () => Navigator.of(dialogContext).pop(type),
+                );
+              }).toList(),
+            ),
+          ),
+        );
+      },
+    );
+
+    if (type == null || !context.mounted) return;
+
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => TransactionFormScreen(type: type),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -19,7 +70,7 @@ class TransactionScreen extends ConsumerWidget {
         title: Text('Transaksi', style: AppTypography.heading),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => TransactionTypePickerSheet.show(context),
+        onPressed: () => _openAddTransaction(context),
         child: const Icon(Icons.add),
       ),
       body: Column(
@@ -41,8 +92,6 @@ class TransactionScreen extends ConsumerWidget {
                 data: (transactions) {
                   if (transactions.isEmpty) {
                     return ListView(
-                      // ListView (bukan Center) supaya pull-to-refresh
-                      // tetap berfungsi walau list kosong
                       children: [
                         const SizedBox(height: 120),
                         Center(

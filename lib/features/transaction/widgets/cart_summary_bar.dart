@@ -6,7 +6,11 @@ import '../../../core/utils/currency_formatter.dart';
 import '../providers/cart_provider.dart';
 
 class CartSummaryBar extends ConsumerWidget {
-  const CartSummaryBar({super.key, required this.onSubmit, this.isLoading = false});
+  const CartSummaryBar({
+    super.key,
+    required this.onSubmit,
+    this.isLoading = false,
+  });
 
   final VoidCallback onSubmit;
   final bool isLoading;
@@ -15,52 +19,62 @@ class CartSummaryBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final cart = ref.watch(cartProvider);
     final total = ref.watch(cartTotalProvider);
-    final itemCount = cart.values.fold(0, (sum, item) => sum + item.quantity);
+    final itemCount =
+        cart.values.fold(0, (sum, item) => sum + item.quantity);
 
     return Container(
+      width: double.infinity,
       padding: const EdgeInsets.fromLTRB(16, 12, 16, 20),
       decoration: BoxDecoration(
         color: AppColors.surface,
-        border: const Border(top: BorderSide(color: AppColors.border)),
+        border: const Border(
+          top: BorderSide(color: AppColors.border),
+        ),
       ),
       child: SafeArea(
         top: false,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Flexible(
-              fit: FlexFit.loose,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('$itemCount item', style: AppTypography.caption),
-                  Text(
-                    CurrencyFormatter.format(total),
-                    style: AppTypography.body.copyWith(
-                      fontWeight: FontWeight.w700,
+        child: SizedBox(
+          width: double.infinity,
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '$itemCount item',
+                      style: AppTypography.caption,
                     ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(width: 16),
-            SizedBox(
-              width: 110,
-              child: ElevatedButton(
-                onPressed: (cart.isEmpty || isLoading) ? null : onSubmit,
-              child: isLoading
-                  ? const SizedBox(
-                      width: 18,
-                      height: 18,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                        color: Colors.white,
+                    Text(
+                      CurrencyFormatter.format(total),
+                      style: AppTypography.body.copyWith(
+                        fontWeight: FontWeight.w700,
                       ),
-                    )
-                  : const Text('Simpan'),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+              const SizedBox(width: 16),
+              SizedBox(
+                width: 110,
+                child: ElevatedButton(
+                  onPressed:
+                      (cart.isEmpty || isLoading) ? null : onSubmit,
+                  child: isLoading
+                      ? const SizedBox(
+                          width: 18,
+                          height: 18,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Colors.white,
+                          ),
+                        )
+                      : const Text('Simpan'),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

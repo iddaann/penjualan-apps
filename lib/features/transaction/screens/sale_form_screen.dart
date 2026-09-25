@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_typography.dart';
 import '../../../data/models/product.dart';
 import '../../../data/models/transaction_type.dart';
@@ -142,7 +141,7 @@ class _SaleFormScreenState
               .submitWithItems(
                 type: TransactionType.sale,
               );
-          if (success && context.mounted) context.pop();
+          if (success && context.mounted) Navigator.of(context).pop();
         },
       ),
     );

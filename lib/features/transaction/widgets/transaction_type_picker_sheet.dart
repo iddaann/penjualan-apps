@@ -19,49 +19,65 @@ class TransactionTypePickerSheet extends StatelessWidget {
   }
 
   void _openTransactionForm(BuildContext context, TransactionType type) {
-    // Simpan instance GoRouter sebelum bottom sheet ditutup.
-    // Memanggil context.push() setelah Navigator.pop() pada context
-    // bottom sheet dapat membuat navigasi tidak berjalan konsisten.
+    // Ambil router sebelum bottom sheet ditutup.
+    // Gunakan goNamed setelah sheet ditutup agar URL browser dan route
+    // benar-benar berpindah ke halaman form transaksi.
     final router = GoRouter.of(context);
     Navigator.of(context).pop();
-    router.push('/transaction/add/${type.apiValue}');
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      router.pushNamed(
+        'transactionForm',
+        pathParameters: {'type': type.apiValue},
+      );
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
-      decoration: const BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Center(
-            child: Container(
-              width: 36,
-              height: 4,
-              decoration: BoxDecoration(
-                color: AppColors.border,
-                borderRadius: BorderRadius.circular(2),
-              ),
+    final maxHeight = MediaQuery.sizeOf(context).height * 0.8;
+
+    return SafeArea(
+      top: false,
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxHeight: maxHeight),
+        child: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
+            decoration: const BoxDecoration(
+              color: AppColors.surface,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Container(
+                    width: 36,
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: AppColors.border,
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Text('Tambah Transaksi', style: AppTypography.heading),
+                const SizedBox(height: 16),
+                ...TransactionType.values.map((type) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: _TypeOption(
+                      type: type,
+                      onTap: () => _openTransactionForm(context, type),
+                    ),
+                  );
+                }),
+              ],
             ),
           ),
-          const SizedBox(height: 16),
-          Text('Tambah Transaksi', style: AppTypography.heading),
-          const SizedBox(height: 16),
-          ...TransactionType.values.map((type) {
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: _TypeOption(
-                type: type,
-                onTap: () => _openTransactionForm(context, type),
-              ),
-            );
-          }),
-        ],
+        ),
       ),
     );
   }

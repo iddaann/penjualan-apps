@@ -22,7 +22,6 @@ class AppTheme {
       brightness: Brightness.dark,
       scaffoldBackgroundColor: Colors.transparent,
       colorScheme: scheme,
-      fontFamily: GoogleFonts.inter().fontFamily,
       textTheme: TextTheme(
         displayLarge: AppTypography.display,
         headlineSmall: AppTypography.heading,

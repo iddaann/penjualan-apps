@@ -20,7 +20,7 @@ class AppTheme {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.dark,
-      scaffoldBackgroundColor: AppColors.background,
+      scaffoldBackgroundColor: Colors.transparent,
       colorScheme: scheme,
       fontFamily: GoogleFonts.inter().fontFamily,
       textTheme: TextTheme(

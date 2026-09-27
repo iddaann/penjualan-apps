@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'app_colors.dart';
 
-/// Skala tipografi mengikuti Bab 30 RPS: Display, Heading, Body, Caption, KPI.
 class AppTypography {
   AppTypography._();
 
@@ -10,12 +9,14 @@ class AppTypography {
         fontSize: 30,
         fontWeight: FontWeight.w700,
         color: AppColors.textPrimary,
+        letterSpacing: -0.8,
       );
 
   static TextStyle get heading => GoogleFonts.inter(
         fontSize: 22,
         fontWeight: FontWeight.w600,
         color: AppColors.textPrimary,
+        letterSpacing: -0.3,
       );
 
   static TextStyle get body => GoogleFonts.inter(
@@ -34,5 +35,12 @@ class AppTypography {
         fontSize: 26,
         fontWeight: FontWeight.w700,
         color: AppColors.textPrimary,
+        letterSpacing: -0.6,
+      );
+
+  static TextStyle get label => GoogleFonts.inter(
+        fontSize: 13,
+        fontWeight: FontWeight.w600,
+        color: AppColors.textSecondary,
       );
 }
